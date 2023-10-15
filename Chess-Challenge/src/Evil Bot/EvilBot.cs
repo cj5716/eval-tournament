@@ -10,7 +10,7 @@ namespace ChessChallenge.Example
         // Piece values: null, pawn, knight, bishop, rook, queen, king
         int[] pieceValues = { 0, 100, 300, 300, 500, 900, 10000 };
 
-        public Move Think(Board board, Timer timer)
+        public (Move, int) Think(Board board, Timer timer)
         {
             Move[] allMoves = board.GetLegalMoves();
 
@@ -39,7 +39,7 @@ namespace ChessChallenge.Example
                 }
             }
 
-            return moveToPlay;
+            return (moveToPlay, 0);
         }
 
         // Test if this move gives checkmate
