@@ -35,7 +35,7 @@ public class MyBot : IChessBot
         int best = -30002;
 
         // Check for repetition (this is much more important than material and 50 move rule draws)
-        if(notRoot && board.IsRepeatedPosition())
+        if(board.IsDraw())
             return 0;
 
         TTEntry entry = tt[key % entries];
@@ -104,7 +104,7 @@ public class MyBot : IChessBot
         }
 
         // (Check/Stale)mate
-        if(!qsearch && moves.Length == 0) return board.IsInCheck() ? -30000 + ply : 0;
+        if (board.IsInCheckmate()) return -30000 + ply;
 
         // Did we fail high/low or get an exact score?
         int bound = best >= beta ? 2 : best > origAlpha ? 3 : 1;
