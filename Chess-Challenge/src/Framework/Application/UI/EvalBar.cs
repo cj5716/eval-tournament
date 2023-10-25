@@ -7,9 +7,9 @@ namespace ChessChallenge.Application
 
     public class EvalBar
     {
-        private static readonly Color Black = new (64, 64, 64, 255);
-        private static readonly Color White = new (150, 150, 150, 255);
-        private static readonly Color TextColor = new (0, 0, 0, 255);
+        private static readonly Color Black = new (50, 50, 50, 255);
+        private static readonly Color White = new (128, 128, 128, 255);
+        private static readonly Color TextColor = new (255, 255, 255, 255);
 
         private const double Scale = 0.005;
         private int _eval;
@@ -29,10 +29,10 @@ namespace ChessChallenge.Application
         public void Draw()
         {
             double adjustedEval = Sigmoid(_eval * Scale);
-            Raylib.DrawRectangleRec(_position, White);
-            Rectangle blackRectangle = _position;
-            blackRectangle.width *= 1.0f - (float)adjustedEval;
-            Raylib.DrawRectangleRec(blackRectangle, Black);
+            Raylib.DrawRectangleRec(_position, Black);
+            Rectangle whiteRectangle = _position;
+            whiteRectangle.width *= (float)adjustedEval;
+            Raylib.DrawRectangleRec(whiteRectangle, White);
             Vector2 textPos = new(_position.x + _position.width * 0.98f , _position.y + _position.height / 2);
             String text = _eval.ToString();
             if (Math.Abs(_eval) > 30_000)
