@@ -34,7 +34,13 @@ namespace ChessChallenge.Application
             blackRectangle.width *= 1.0f - (float)adjustedEval;
             Raylib.DrawRectangleRec(blackRectangle, Black);
             Vector2 textPos = new(_position.x + _position.width * 0.98f , _position.y + _position.height / 2);
-            UIHelper.DrawText(_eval.ToString(), textPos, (int)(_position.height * 0.75), 1, TextColor, UIHelper.AlignH.Right);
+            String text = _eval.ToString();
+            if (Math.Abs(_eval) > 30_000)
+            {
+                int mateDist = 31_000 - Math.Abs(_eval);
+                text = (_eval < 0 ? "-M" : "M") + mateDist.ToString();
+            }
+            UIHelper.DrawText(text, textPos, (int)(_position.height * 0.75), 1, TextColor, UIHelper.AlignH.Right);
         }
 
         public EvalBar(Rectangle position)
